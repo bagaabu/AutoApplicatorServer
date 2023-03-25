@@ -20,9 +20,11 @@ from setting import config
 
 app.config.from_object(config)
 
-from app.applicator import collect_info
+from app.applicator import collect_info, application
 
 app.add_url_rule('/collect_info', view_func=collect_info, methods=["POST", "GET"])
+
+app.add_url_rule('/request_paper', view_func=application, methods=["POST", "GET"])
 
 
 # 打印urls映射
