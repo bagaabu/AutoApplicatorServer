@@ -25,7 +25,13 @@ from app.utils import rerange_search2db, rerange_up2db
 logger = get_logger(filename='main')
 
 
-# def application():
+def application():
+    logger.info('get a paper request!')
+    j_data = json.loads(data)
+    userID = j_data['userID']
+    resOut = {"status": 0, 'result': {'flag': False, 'infos': None}, 'msg': ''}
+    return jsonify(resOut)
+
 
 def collect_info():
     logger.info('get a request!')
