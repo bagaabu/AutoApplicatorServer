@@ -30,8 +30,9 @@ logger = get_logger(filename='main')
 
 
 def collect_info():
+    logger.info('get a request!')
     try:
-        resOut = {"status": 0, 'result': {'flag':False, 'infos':None}, 'msg': ''}
+        resOut = {"status": 0, 'result': {'flag': False, 'infos': None}, 'msg': ''}
 
         if request.method == 'POST':
             data = str(request.get_data(), encoding="utf8")
