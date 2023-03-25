@@ -28,6 +28,7 @@ logger = get_logger(filename='main')
 
 
 
+
 def collect_info():
     try:
         resOut = {"status": 0, 'result': {'flag':False, 'infos':None}, 'msg': ''}
@@ -36,7 +37,7 @@ def collect_info():
             data = str(request.get_data(), encoding="utf8")
             j_data = json.loads(data)
             userID = j_data['userID']
-
+            logger.info('get request:{}'.format(j_data['request_id']))
             upload_list = rerange_up2db(j_data)
             for table_name, up_data in upload_list.items():
                 Recoder.change_db('NX-database', table_name, 1)
