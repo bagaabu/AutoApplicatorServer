@@ -20,14 +20,12 @@ sys.path.append(lib_path)
 
 from log import get_logger
 from app.Reporter import Recoder, stage_dict
+from app.utils import rerange_search2db, rerange_up2db
 
 logger = get_logger(filename='main')
 
 
 # def application():
-
-
-
 
 def collect_info():
     logger.info('get a request!')
