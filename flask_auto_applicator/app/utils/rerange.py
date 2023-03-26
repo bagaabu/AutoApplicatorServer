@@ -23,10 +23,10 @@ def rerange_up2db(info_dict):
     if 'userID' not in info_dict:
         raise Exception("userID is needed!")
     userID = info_dict.pop('userID')
-    for item in info_dict.items():
-        stage = user_struct[item]
+    for key in info_dict:
+        stage = user_struct[key]
         if stage not in upload_list:
-            upload_list[stage] = {'userID':userID}
-        upload_list[stage][item] = info_dict[item]
+            upload_list[stage] = {'userID': userID}
+        upload_list[stage][key] = info_dict[key]
     return upload_list
 
