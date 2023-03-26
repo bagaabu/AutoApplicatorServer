@@ -8,7 +8,7 @@ class dbReporter:
     def __init__(self, user, password, address):
         username = urllib.parse.quote_plus(user)
         password = urllib.parse.quote_plus(password)
-        self.mongo_client = pymongo.MongoClient('mongodb://{}:{}@{}'.format(username, password, address), 27017)
+        self.mongo_client = pymongo.MongoClient('mongodb://{}:{}@{}'.format(username, password, address), 27018)
 
     def setup_db(self, dbName, collectionName, flag):
         print('setup flag: ' + self.state_flag[flag])
