@@ -31,6 +31,6 @@ def rerange_up2db(info_dict):
     return upload_list
 
 
-def rerange_up2txt(info_dict):
+# def rerange_up2txt(info_dict):
 
 
