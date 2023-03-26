@@ -44,7 +44,7 @@ def collect_info():
             j_data = json.loads(data)
             userID = j_data['userID']
             logger.info('get request:{}'.format(j_data['request_id']))
-            upload_list = rerange_up2db(j_data)
+            upload_list = rerange_up2db(j_data['data'])
             for table_name, up_data in upload_list.items():
                 Recoder.change_db('NX-database', table_name, 1)
                 _ = Recoder.log(up_data)
