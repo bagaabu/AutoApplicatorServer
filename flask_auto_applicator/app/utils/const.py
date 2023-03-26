@@ -4,8 +4,8 @@ user_struct = \
     'name': 'personal-info',
     'gender': 'personal-info',
     'age': 'personal-info',
-    'under-course': 'personal-info',
-    'under-major': 'personal-info',
+    'underCourse': 'personal-info',
+    'underMajor': 'personal-info',
     'GPA': 'score',
     'GRE': 'score',
     'SAT': 'score',
@@ -15,9 +15,12 @@ user_struct = \
     'workingExe': 'exp',
     'projectExe': 'exp',
     'honor&award': 'exp',
-    'prefer-country': 'school',
-    'prefer-university': 'school',
-    'prefer-major': 'school',
+    'preferCountry': 'school',
+    'preferUniversity': 'school',
+    'preferMajor': 'school',
     'motivation': 'school',
-    'long-term-program': 'school'
+    'longTermProgram': 'school'
 }
+
+urls = {'collect_info': 'http://121.41.58.52:8497/collect_info',
+        'request_txt': 'http://10.252.64.73:6015/api/v1.0/ps_generate'}

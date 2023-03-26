@@ -20,7 +20,7 @@ sys.path.append(lib_path)
 
 from log import get_logger
 from app.Reporter import Recoder, stage_dict
-from app.utils import rerange_search2db, rerange_up2db
+from app.utils import rerange_search2db, rerange_up2db, send_request
 
 logger = get_logger(filename='main')
 
@@ -29,7 +29,8 @@ def application():
     logger.info('get a paper request!')
     data = str(request.get_data(), encoding="utf8")
     j_data = json.loads(data)
-    userID = j_data['userID']
+    requestID = j_data['requestID']
+    res = send_request('request_txt', user_data, requestID)
     resOut = {"status": 0, 'result': {'flag': False, 'infos': None}, 'msg': ''}
     return jsonify(resOut)
 
@@ -42,7 +43,7 @@ def collect_info():
         if request.method == 'POST':
             data = str(request.get_data(), encoding="utf8")
             j_data = json.loads(data)
-            userID = j_data['userID']
+            userID = j_data['data']['userID']
             logger.info('get request:{}'.format(j_data['request_id']))
             upload_list = rerange_up2db(j_data['data'])
             for table_name, up_data in upload_list.items():
