@@ -1,5 +1,5 @@
 import urllib.parse
-from ..utils.const import auth_dict
+from .const import auth_dict
 from .tools import get_time
 import pymongo
 

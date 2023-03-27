@@ -60,16 +60,12 @@ def application():
         elif request.method == 'GET':
             user_data = request.args.get('data')
             requestID = request.args.get('requestID')
-            userID = user_data['userID']
-
             Recoder = dbReporter()
             Recoder.setup_db('NX-database', 'Articles', 1)
             librarian = writer(Recoder, requestID, user_data)
             search_result = librarian.get_article_records
-
             resOut['result']['records'] = search_result
             resOut['result']['flag'] = True
-
             return jsonify(resOut)
 
     except Exception as e:
@@ -78,8 +74,6 @@ def application():
         resOut['msg'] = exstr
         logging.error(exstr)
         return jsonify(resOut)
-
-
 
 
 def collect_info():
