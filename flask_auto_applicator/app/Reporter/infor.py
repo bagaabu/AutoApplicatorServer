@@ -1,14 +1,17 @@
 import urllib.parse
+from ..utils.const import auth_dict
+from .tools import get_time
 import pymongo
 
 
 class dbReporter:
     state_flag = {0: 'clean all', 1: 'keep all'}
 
-    def __init__(self, user, password, address):
-        username = urllib.parse.quote_plus(user)
-        password = urllib.parse.quote_plus(password)
-        self.mongo_client = pymongo.MongoClient('mongodb://{}:{}@{}'.format(username, password, address), 27018)
+    def __init__(self):
+        username = urllib.parse.quote_plus(auth_dict['user'])
+        password = urllib.parse.quote_plus(auth_dict['password'])
+        self.mongo_client = pymongo.MongoClient('mongodb://{}:{}@{}'.format(username, password, auth_dict['address']),
+                                                auth_dict['port'])
 
     def setup_db(self, dbName, collectionName, flag):
         print('setup flag: ' + self.state_flag[flag])
@@ -47,9 +50,15 @@ class dbReporter:
         else:
             return False, None
 
-    def log(self, content):
+    def log(self, content, replace=True):
         userID = content['userID']
-        prev_search = self.search(userID)
+        time_stamp, time_str = get_time()
+        content['time_stamp'] = time_stamp
+        content['time_str'] = time_str
+        if replace:
+            prev_search = self.search(userID)
+        else:
+            prev_search = [False]
         if prev_search[0]:
             prev_query = {"userID": userID}
             present_query = {"$set": content}

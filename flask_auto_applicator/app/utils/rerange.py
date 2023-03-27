@@ -29,8 +29,3 @@ def rerange_up2db(info_dict):
             upload_list[stage] = {'userID': userID}
         upload_list[stage][key] = info_dict[key]
     return upload_list
-
-
-# def rerange_up2txt(info_dict):
-
-
