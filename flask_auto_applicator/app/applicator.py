@@ -49,8 +49,11 @@ def process_thread(requestID, user_data):
     name = '{}-{}'.format(requestID, user_data['userID'])
     reporter = writer(Recoder, requestID, user_data)
     logger.info("thread:{} is running ......".format(name, requestID))
-    reporter.get_save_article()
-    logger.info("thread:{}'s request haas finished ......".format(name, requestID))
+    res_status = reporter.get_save_article()
+    if res_status == 0:
+        logger.info("thread:{}'s request has finished ......".format(name, requestID))
+    else:
+        logger.info("thread:{}'s request has failed ......".format(name, requestID))
 
 
 def application():
