@@ -10,6 +10,8 @@ import logging
 import logging.handlers
 import traceback
 
+import concurrent.futures
+
 import numpy as np
 
 from flask import request, jsonify
@@ -26,33 +28,43 @@ from app.Writer import writer
 logger = get_logger(filename='main')
 
 
-class ProcessThread(Thread):
-    def __init__(self, requestID, user_data):
-        super(ProcessThread, self).__init__(name=thread_name)
-        Recoder = dbReporter()
-        Recoder.setup_db('NX-database', 'Articles', 1)
-        self.requestID = requestID
-        self.name = '{}-{}'.format(requestID, user_data['userID'])
-        self.writer = writer(Recoder, requestID, user_data)
+# class ProcessThread(Thread):
+#     def __init__(self, requestID, user_data):
+#         super(ProcessThread, self).__init__(name=thread_name)
+#         Recoder = dbReporter()
+#         Recoder.setup_db('NX-database', 'Articles', 1)
+#         self.requestID = requestID
+#         self.name = '{}-{}'.format(requestID, user_data['userID'])
+#         self.writer = writer(Recoder, requestID, user_data)
+#
+#     def run(self):
+#         logger.info("thread:{} is running ......".format(self.name, self.requestID))
+#         self.writer.get_save_article()
+#         logger.info("thread:{}'s request haas finished ......".format(self.name, self.requestID))
 
-    def run(self):
-        logger.info("thread:{} is running ......".format(self.name, self.requestID))
-        self.writer.get_save_article()
-        logger.info("thread:{}'s request haas finished ......".format(self.name, self.requestID))
+
+def process_thread(requestID, user_data):
+    Recoder = dbReporter()
+    Recoder.setup_db('NX-database', 'Articles', 1)
+    name = '{}-{}'.format(requestID, user_data['userID'])
+    reporter = writer(Recoder, requestID, user_data)
+    logger.info("thread:{} is running ......".format(name, requestID))
+    reporter.get_save_article()
+    logger.info("thread:{}'s request haas finished ......".format(name, requestID))
 
 
 def application():
     logger.info('get a paper request!')
     resOut = {"status": 0, 'result': {'flag': False, 'records': []}, 'msg': ''}
+    executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
     try:
         if request.method == 'POST':
             data = str(request.get_data(), encoding="utf8")
             j_data = json.loads(data)
             requestID = j_data['requestID']
-
-            new_thread = ProcessThread(requestID, j_data['data'])
-            new_thread.start()
-
+            executor.submit(process_thread, requestID, j_data['data'])
+            # new_thread = ProcessThread(requestID, j_data['data'])
+            # new_thread.start()
             resOut['msg'] = 'request {} has been received!'.format(requestID)
 
             return jsonify(resOut)
