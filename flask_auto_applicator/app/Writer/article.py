@@ -24,12 +24,12 @@ class writer:
         return articel_id
 
     def get_save_article(self):
-        try:
-            article = self.get_article('request_txt', self.requestID, self.userdata)
-            _, = self.save_article(article)
-            return 0
-        except:
-            return 1
+        # try:
+        article = self.get_article('request_txt', self.requestID, self.userdata)
+        _, = self.save_article(article)
+        return 0
+        # except:
+        #     return 1
 
     def search_article(self, userID, date=None):
         flag = False
