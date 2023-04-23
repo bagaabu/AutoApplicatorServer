@@ -28,21 +28,6 @@ from app.Writer import writer
 logger = get_logger(filename='main')
 
 
-# class ProcessThread(Thread):
-#     def __init__(self, requestID, user_data):
-#         super(ProcessThread, self).__init__(name=thread_name)
-#         Recoder = dbReporter()
-#         Recoder.setup_db('NX-database', 'Articles', 1)
-#         self.requestID = requestID
-#         self.name = '{}-{}'.format(requestID, user_data['userID'])
-#         self.writer = writer(Recoder, requestID, user_data)
-#
-#     def run(self):
-#         logger.info("thread:{} is running ......".format(self.name, self.requestID))
-#         self.writer.get_save_article()
-#         logger.info("thread:{}'s request haas finished ......".format(self.name, self.requestID))
-
-
 def process_thread(requestID, user_data):
     Recoder = dbReporter()
     Recoder.setup_db('NX-database', 'Articles', 1)
