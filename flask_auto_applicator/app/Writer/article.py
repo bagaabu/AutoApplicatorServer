@@ -23,10 +23,12 @@ class writer:
         articel_id = self.recorder.log(save_dict, False)
         return articel_id
 
-    def get_save_article(self):
+    def get_save_article(self, logger):
         # try:
         article = self.get_article('request_txt', self.requestID, self.userdata)
+        logger.info('article received')
         _, = self.save_article(article)
+        logger.info('article saved')
         return 0
         # except:
         #     return 1

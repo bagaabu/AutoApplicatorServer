@@ -34,7 +34,7 @@ def process_thread(requestID, user_data):
     name = '{}-{}'.format(requestID, user_data['userID'])
     reporter = writer(Recoder, requestID, user_data)
     logger.info("thread:{} is running ......".format(name, requestID))
-    res_status = reporter.get_save_article()
+    res_status = reporter.get_save_article(logger)
     if res_status == 0:
         logger.info("thread:{}'s request has finished ......".format(name, requestID))
     else:
@@ -51,10 +51,7 @@ def application():
             j_data = json.loads(data)
             requestID = j_data['requestID']
             executor.submit(process_thread, requestID, j_data['data'])
-            # new_thread = ProcessThread(requestID, j_data['data'])
-            # new_thread.start()
             resOut['msg'] = 'request {} has been received!'.format(requestID)
-
             return jsonify(resOut)
 
         elif request.method == 'GET':
