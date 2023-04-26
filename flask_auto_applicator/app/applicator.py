@@ -44,13 +44,16 @@ def process_thread(requestID, user_data):
 def application():
     logger.info('get a paper request!')
     resOut = {"status": 0, 'result': {'flag': False, 'records': []}, 'msg': ''}
-    executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+    # executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
     try:
         if request.method == 'POST':
             data = str(request.get_data(), encoding="utf8")
             j_data = json.loads(data)
             requestID = j_data['requestID']
-            executor.submit(process_thread, requestID, j_data['data'])
+            # executor.submit(process_thread, requestID, j_data['data'])
+
+            process_thread(requestID, j_data['data'])
+
             resOut['msg'] = 'request {} has been received!'.format(requestID)
             return jsonify(resOut)
 
