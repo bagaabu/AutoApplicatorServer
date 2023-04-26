@@ -9,8 +9,8 @@ class writer:
         self.requestID = requestID
         self.recorder = recorder
 
-    def get_article(self, requestID, user_data):
-        res = send_request('request_txt', user_data, requestID)
+    def get_article(self, target, requestID, user_data):
+        res = send_request(target, user_data, requestID)
         return res
 
     def save_article(self, article_record):
