@@ -16,7 +16,7 @@ def send_request(target, data, request_id):
 
 if __name__ == '__main__':
     urls = {'collect_info': 'http://121.41.58.52:8497/collect_info',
-            'request_txt': 'https://10.252.161.245:7860/api/v1.0/ps_generate',
+            'request_txt': 'http://10.252.161.245:7860/api/v1.0/ps_generate',
             'online': 'https://otterwang.com/request_paper'}
 
     data = {
