@@ -51,9 +51,7 @@ def application():
             j_data = json.loads(data)
             requestID = j_data['requestID']
             # executor.submit(process_thread, requestID, j_data['data'])
-
             process_thread(requestID, j_data['data'])
-
             resOut['msg'] = 'request {} has been received!'.format(requestID)
             return jsonify(resOut)
 
